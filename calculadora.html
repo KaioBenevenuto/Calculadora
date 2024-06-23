@@ -7,45 +7,38 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body class="fundo">
+  <body class="background">
     <div class="calc">
-      <p id="resultado"></p>
-      <table>
-        <tr>
-          <td><button onclick="clean()">C</button></td>
-          <td><button onclick="back()"><</button></td>
-          <td><button onclick="insert('/')">/</button></td>
-          <td><button onclick="insert('*')">X</button></td>
-        </tr>
-
-        <tr>
-          <td><button onclick="insert('7')">7</button></td>
-          <td><button onclick="insert('8')">8</button></td>
-          <td><button onclick="insert('9')">9</button></td>
-          <td><button onclick="insert('-')">-</button></td>
-        </tr>
-
-        <tr>
-          <td><button onclick="insert('4')">4</button></td>
-          <td><button onclick="insert('5')">5</button></td>
-          <td><button onclick="insert('6')">6</button></td>
-          <td><button onclick="insert('+')">+</button></td>
-        </tr>
-
-        <tr>
-          <td><button onclick="insert('1')">1</button></td>
-          <td><button onclick="insert('2')">2</button></td>
-          <td><button onclick="insert('3')">3</button></td>
-          <td rowspan="2"><button style="height: 106px" onclick="calcular()">=</button></td>
-        </tr>
-
-        <tr>
-          <td colspan="2">
-            <button style="width: 106px" onclick="insert('0')">0</button>
-          </td>
-          <td><button onclick="insert('.')">.</button></td>
-        </tr>
-      </table>
+      <div id="operation">
+        <div id="previousOperation"></div>
+        <div id="currentOperation"></div>
+      </div>
+      
+      <div id="buttons-container">
+        <button>CE</button>
+        <button>C</button>
+        <button>Del</button>
+        <button>÷</button> 
+            
+        <button class="number">7</button>
+        <button class="number">8</button>
+        <button class="number">9</button>
+        <button>×</button>
+          
+        <button class="number">4</button>
+        <button class="number">5</button>
+        <button class="number">6</button>
+        <button>-</button>
+          
+        <button class="number">1</button>
+        <button class="number">2</button>
+        <button class="number">3</button>
+        <button>+</button>
+    
+        <button class="number">.</button>
+        <button class="number">0</button>
+        <button id="equal-btn">=</button>
+      </div>
     </div>
 
     <script src="./js/script.js"></script>
