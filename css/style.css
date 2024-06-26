@@ -72,6 +72,3 @@ button:hover{
   background-color: #313131;
   color: #7d8080;
 }
-#equal-btn{
-  grid-column: span 2;
-}

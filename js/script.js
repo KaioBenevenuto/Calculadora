@@ -1,20 +1,25 @@
-const previousOperationText = document.querySelector("#previousOperation");
-const currentOperationText = document.querySelector("#currentOperation");
-const buttons = document.querySelectorAll("#buttons-container button");
+const previousOperationText = document.querySelector("#previousOperation")
+const currentOperationText = document.querySelector("#currentOperation")
+const buttons = document.querySelectorAll("#buttons-container button")
 
 class Calculadora {
   constructor(currentOperationText, previousOperationText) {
     this.currentOperationText = currentOperationText
     this.previousOperationText = previousOperationText
     this.currentOperation = ""
+    this.length = this.currentOperationText.length
   }
 
   // adiciona dígito à tela da calculadora
   addDigit(digit) {
     // checa se a operação já tem um ponto
-    if (digit === "." && this.currentOperationText.innerText.includes(".")) {
+    if (
+      (digit === "." && this.currentOperationText.innerText.includes(".")) ||
+      (digit === "." && this.currentOperationText.innerText === "")
+    ) {
       return
     }
+    
     this.currentOperation = digit
     this.updateScreen()
   }
@@ -60,12 +65,16 @@ class Calculadora {
       case "C":
         this.processClearAllOperation()
         break
+      case "+/-":
+        this.exchangeOperator()
+        break
       case "=":
         this.processEqualsOperator()
         break
       default:
         return
     }
+
   }
 
   // alterar os valores da tela da calculadora
@@ -82,7 +91,7 @@ class Calculadora {
       if (previous === 0) {
         operationValue = current
       }
-
+  
       // adiciona o valor atual ao anterior
       this.previousOperationText.innerText = `${operationValue} ${operation}`
       this.currentOperationText.innerText = ""
@@ -101,8 +110,16 @@ class Calculadora {
 
   // deleta o último digito
   processDelOperator() {
-    this.currentOperationText.innerText =
-      this.currentOperationText.innerText.slice(0, -1)
+    if (
+      this.currentOperationText.innerText.length == "2" &&
+      this.currentOperationText.innerText.includes('-')
+    ) {
+      this.currentOperationText.innerText =
+        this.currentOperationText.innerText.slice(0, -2)
+    } else {
+      this.currentOperationText.innerText =
+        this.currentOperationText.innerText.slice(0, -1)
+    }
   }
 
   // limpa a operação atual
@@ -116,23 +133,32 @@ class Calculadora {
     this.previousOperationText.innerText = ""
   }
 
+  exchangeOperator(){
+    if (!this.currentOperationText.innerText.includes('-') && this.currentOperationText.innerText !== '0'){
+      this.currentOperationText.innerText =
+        "-" + this.currentOperationText.innerText
+    } else {
+      this.currentOperationText.innerText = this.currentOperationText.innerText.replace('-', '');
+    }
+  }
+
   // processa a operação
-  processEqualsOperator(){
-    const operation = previousOperationText.innerText.split(" ")[1];
-    this.processOperation(operation);
+  processEqualsOperator() {
+    const operation = previousOperationText.innerText.split(" ")[1]
+    this.processOperation(operation)
   }
 }
 
-const calc = new Calculadora(currentOperationText, previousOperationText);
+const calc = new Calculadora(currentOperationText, previousOperationText)
 
 buttons.forEach((btn) => {
-  btn.addEventListener("click", (e) =>{
-    const value = e.target.innerText;
-    
-    if(+value >= 0 || value === '.'){
-      calc.addDigit(value);
-    }else{
-      calc.processOperation(value);
+  btn.addEventListener("click", (e) => {
+    const value = e.target.innerText
+
+    if (+value >= 0 || value === ".") {
+      calc.addDigit(value)
+    } else {
+      calc.processOperation(value)
     }
   })
 })
