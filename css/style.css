@@ -69,8 +69,8 @@ button:hover{
   border-color: rgb(80, 80, 80);
 }
 .number{
-  background-color: #0a0908;
-  color: #6d7272;
+  background-color: #313131;
+  color: #7d8080;
 }
 #equal-btn{
   grid-column: span 2;
